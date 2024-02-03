@@ -7,6 +7,9 @@
   "license": "ISC",
   "main": "lib/index.js",
   "private": false,
+  "bin": {
+    "jj-cli": "./bin/index.js"
+  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
