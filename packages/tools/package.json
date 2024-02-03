@@ -1,5 +1,5 @@
 {
-  "name": "tools",
+  "name": "@jj-cli/tools",
   "version": "1.0.1",
   "description": "> TODO: description",
   "author": "JuneJH <15310487388@163.com>",
@@ -23,5 +23,5 @@
   "bugs": {
     "url": "https://github.com/JuneJH/jj-cli/issues"
   },
-  "gitHead": "cef3880270f2c425de6e5d539cd70c9879411599"
+  "gitHead": "fa90d56e3845771ad9ccf8fe16f2e028d1a4baba"
 }
