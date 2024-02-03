@@ -6,6 +6,7 @@
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
   "license": "ISC",
   "main": "lib/index.js",
+  "private": false,
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -23,5 +24,5 @@
   "bugs": {
     "url": "https://github.com/JuneJH/jj-cli/issues"
   },
-  "gitHead": "fa90d56e3845771ad9ccf8fe16f2e028d1a4baba"
+  "gitHead": "c44820ab28d2ad619dc59100ebbf5b2d867cf872"
 }
