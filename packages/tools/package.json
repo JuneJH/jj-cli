@@ -1,0 +1,26 @@
+{
+  "name": "tools",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "JuneJH <15310487388@163.com>",
+  "homepage": "https://github.com/JuneJH/jj-cli#readme",
+  "license": "ISC",
+  "main": "lib/tools.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuneJH/jj-cli.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/tools.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/JuneJH/jj-cli/issues"
+  }
+}
