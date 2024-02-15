@@ -3,5 +3,5 @@
 module.exports = tools;
 
 function tools() {
-  return 'Hello from tools';
+  return 'Hello from toolsyell';
 }
