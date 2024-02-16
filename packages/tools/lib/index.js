@@ -1,7 +1,12 @@
-'use strict';
+const log = require("./log");
+const checkRoot = require("./checkRoot");
+const { checkNodeVersion, checkPkgVersion } = require("./checkVersion");
 
-module.exports = tools;
 
-function tools() {
-  return 'Hello from toolsyell';
+
+module.exports = {
+  checkNodeVersion,
+  checkPkgVersion,
+  checkRoot,
+  log,
 }

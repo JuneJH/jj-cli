@@ -30,6 +30,7 @@
   "dependencies": {
     "@jj-cli/tools": "file:../tools",
     "dedent": "^1.5.1",
+    "import-local": "^3.1.0",
     "yargs": "^17.7.2"
   },
   "gitHead": "73e871a8236788573a2ebe528d0ae588f75f8e8e"

@@ -1,12 +1,11 @@
 {
-  "name": "@jj-cli/tools",
+  "name": "@jj-cli/models",
   "version": "1.0.5",
   "description": "> TODO: description",
   "author": "JuneJH <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
   "license": "ISC",
-  "main": "lib/index.js",
-  "private": false,
+  "main": "lib/models.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -19,13 +18,9 @@
     "url": "git+https://github.com/JuneJH/jj-cli.git"
   },
   "scripts": {
-    "test": "node ./__tests__/tools.test.js"
+    "test": "node ./__tests__/models.test.js"
   },
   "bugs": {
     "url": "https://github.com/JuneJH/jj-cli/issues"
-  },
-  "gitHead": "73e871a8236788573a2ebe528d0ae588f75f8e8e",
-  "dependencies": {
-    "npmlog": "^7.0.1"
   }
 }
