@@ -12,6 +12,12 @@ function checkEnv() {
             path: envPath
         })
     }
+    const defaultEnv = {
+        home: userHome,
+        cliHome: path.join(userHome, ".jj-cli")
+    }
+
+    process.env.CLI_HOME_PATH = defaultEnv.cliHome
 }
 
 module.exports = checkEnv;
