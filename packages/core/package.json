@@ -1,7 +1,7 @@
 {
   "name": "@jj-cli/core",
   "version": "1.0.5",
-  "description": "> TODO: description",
+  "description": "帮助你完成日常工作流水工作,更标准,易维护",
   "author": "JuneJH <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
   "license": "ISC",
