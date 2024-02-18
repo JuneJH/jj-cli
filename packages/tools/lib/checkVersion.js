@@ -3,7 +3,10 @@ const pkg = require("../../../lerna.json");
 function checkPkgVersion(){
     log.info("version",pkg.version);
 }
-function checkNodeVersion(){}
+
+function checkNodeVersion(){
+
+}
 
 module.exports = {
     checkNodeVersion,

@@ -1,10 +1,26 @@
-const { log, checkNodeVersion, checkPkgVersion, checkRoot } = require("@jj-cli/tools");
+const {
+  log,
+  checkNodeVersion,
+  checkPkgVersion,
+  checkRoot,
+  checkEnv,
+  checkOption,
+  checkUpdate,
+  checkUserHome
+} = require("@jj-cli/tools");
 const { createCommander, createYargs } = require("@jj-cli/commands")
-function cli() {
+async function cli() {
   try {
     checkPkgVersion();
     checkNodeVersion();
     checkRoot();
+    checkUserHome();
+    checkEnv();
+    checkOption();
+    const { checkVersionRes, currentVersion } = await checkUpdate();
+    if (checkVersionRes && checkVersionRes.length > 0) {
+      log.warn(`当前版本(${currentVersion})可更新：可选版本:${checkVersionRes.join(",")}`)
+    }
     createYargs();
   } catch (error) {
     log.error(error)

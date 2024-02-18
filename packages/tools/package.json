@@ -1,6 +1,6 @@
 {
   "name": "@jj-cli/tools",
-  "version": "1.0.5",
+  "version": "1.0.3",
   "description": "> TODO: description",
   "author": "JuneJH <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
@@ -26,6 +26,13 @@
   },
   "gitHead": "73e871a8236788573a2ebe528d0ae588f75f8e8e",
   "dependencies": {
-    "npmlog": "^7.0.1"
+    "npmlog": "^7.0.1",
+    "path-exists": "^4.0.0",
+    "root-check": "^1.0.0",
+    "dotenv": "^8.2.0",
+    "user-home": "^2.0.0",
+    "axios": "^0.21.0",
+    "semver": "^7.3.4",
+    "url-join": "^4.0.1"
   }
 }
