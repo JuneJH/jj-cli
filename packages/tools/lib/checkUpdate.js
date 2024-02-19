@@ -20,7 +20,7 @@ async function checkUpdate(n, v) {
 }
 
 async function getPkgVersionNpm(pkgName) {
-    const url = urlJoin(getRegistry, pkgName);
+    const url = urlJoin(getRegistry(), pkgName);
     const res = await axios.get(url);
     if (res.status == 200) {
         return Object.keys(res.data.versions);
@@ -35,7 +35,7 @@ async function getPkgLatestVersion(pkgName) {
     const version = await getPkgVersionNpm(pkgName);
     if (version) {
         version.sort((a, b) => semver.gt(a, b) ? -1 : 1);
-        return version.unshift();
+        return version.shift();
     }
     return null;
 

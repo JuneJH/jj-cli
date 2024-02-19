@@ -23,21 +23,21 @@ class PackageManage {
 
   async preHander() {
     if (this.storeDir && !pathExists(this.storeDir)) {
-      fse.mkdirSync(this.storeDir);
+      fse.mkdirpSync(this.storeDir);
     }
     if (this.pkgVersion === "latest") {
-      this.pkgVersion = getPkgLatestVersion(this.pkgName);
+      this.pkgVersion = await getPkgLatestVersion(this.pkgName);
     }
   }
 
   computerPkgPath(pkgVersion) {
-    return path.resolve(this.storeDir, `_${this.cachePrefix}@${pkgVersion}@${this.pkgName}`);
+    return path.resolve(this.storeDir, `${this.pkgName}`);
   }
 
   async exists() {
     if (this.storeDir) {
       await this.preHander();
-      return pathExists(this.cachePkgPath)
+      return pathExists(this.cachePkgPath);
     }
   }
 
@@ -76,16 +76,16 @@ class PackageManage {
   _getFileRootPath(targetPath) {
     const packageDir = pkgDir(targetPath);
     if (packageDir) {
-      const packageJSON = require(path.resolve(dir, "package.json"));
+      const packageJSON = require(path.resolve(packageDir, "package.json"));
       if (packageJSON && packageJSON.main) {
-        return compatibleSep(packageJSON.main);
+        return compatibleSep(path.resolve(packageDir, packageJSON.main));
       }
     }
     return null;
   }
 
   getFileRootPath() {
-    return this._getFileRootPath(this.storeDir);
+    return this._getFileRootPath(path.resolve(this.storeDir, this.pkgName));
   }
 }
 
