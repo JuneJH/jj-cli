@@ -25,5 +25,12 @@
   },
   "bugs": {
     "url": "https://github.com/JuneJH/jj-cli/issues"
+  },
+  "dependencies": {
+    "@jj-cli/tools": "file:../tools",
+    "fs-extra": "^11.2.0",
+    "npminstall": "^7.12.0",
+    "path-exists": "^5.0.0",
+    "pkg-dir": "^8.0.0"
   }
 }

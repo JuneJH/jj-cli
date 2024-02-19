@@ -30,6 +30,7 @@
   "dependencies": {
     "@jj-cli/commands": "file:../commands",
     "@jj-cli/tools": "file:../tools",
+    "@jj-cli/packageManage": "file:../packageManage",
     "import-local": "^3.1.0"
   },
   "gitHead": "73e871a8236788573a2ebe528d0ae588f75f8e8e"
