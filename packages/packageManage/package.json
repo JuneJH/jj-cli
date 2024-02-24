@@ -1,6 +1,6 @@
 {
   "name": "@jj-cli/packagemanage",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "> TODO: description",
   "author": "juhong <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
@@ -28,7 +28,7 @@
     "url": "https://github.com/JuneJH/jj-cli/issues"
   },
   "dependencies": {
-    "@jj-cli/tools": "^1.0.8",
+    "@jj-cli/tools": "^1.0.9",
     "fs-extra": "^11.2.0",
     "npminstall": "^7.12.0",
     "path-exists": "^4.0.0",

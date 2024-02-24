@@ -1,6 +1,6 @@
 {
   "name": "@jj-cli/init",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "init cli",
   "author": "juhong <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
@@ -27,8 +27,8 @@
     "url": "https://github.com/JuneJH/jj-cli/issues"
   },
   "dependencies": {
-    "@jj-cli/commands": "^1.0.8",
-    "@jj-cli/tools": "^1.0.8"
+    "@jj-cli/commands": "^1.0.9",
+    "@jj-cli/tools": "^1.0.9"
   },
   "gitHead": "a410c6d961ea9a0168e7305e7c3a0dec1a430196"
 }

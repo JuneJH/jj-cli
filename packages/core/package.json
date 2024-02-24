@@ -1,6 +1,6 @@
 {
   "name": "@jj-cli/core",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "帮助你完成日常工作流水工作,更标准,易维护",
   "author": "JuneJH <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
@@ -28,9 +28,9 @@
     "url": "https://github.com/JuneJH/jj-cli/issues"
   },
   "dependencies": {
-    "@jj-cli/commands": "^1.0.8",
+    "@jj-cli/commands": "^1.0.9",
     "@jj-cli/packageManage": "file:../packageManage",
-    "@jj-cli/tools": "^1.0.8",
+    "@jj-cli/tools": "^1.0.9",
     "import-local": "^3.1.0"
   },
   "gitHead": "a410c6d961ea9a0168e7305e7c3a0dec1a430196"
