@@ -1,10 +1,11 @@
 {
   "name": "@jj-cli/commands",
-  "version": "1.0.6",
+  "version": "1.0.11",
   "description": "> TODO: description",
   "author": "JuneJH <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
   "license": "ISC",
+  "private": false,
   "main": "lib/index.js",
   "directories": {
     "lib": "lib",
@@ -27,5 +28,6 @@
     "commander": "^12.0.0",
     "dedent": "^1.5.1",
     "yargs": "^17.7.2"
-  }
+  },
+  "gitHead": "11ec9a695abb431ac0ac12fa36cb46c92f738fe6"
 }

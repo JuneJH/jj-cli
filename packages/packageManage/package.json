@@ -1,10 +1,11 @@
 {
   "name": "@jj-cli/packagemanage",
-  "version": "1.0.6",
+  "version": "1.0.11",
   "description": "> TODO: description",
   "author": "juhong <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
   "license": "ISC",
+  "private": false,
   "main": "lib/index.js",
   "directories": {
     "lib": "lib",
@@ -13,9 +14,6 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmmirror.com/"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JuneJH/jj-cli.git"
@@ -27,10 +25,11 @@
     "url": "https://github.com/JuneJH/jj-cli/issues"
   },
   "dependencies": {
-    "@jj-cli/tools": "file:../tools",
+    "@jj-cli/tools": "^1.0.11",
     "fs-extra": "^11.2.0",
     "npminstall": "^7.12.0",
     "path-exists": "^4.0.0",
     "pkg-dir": "^5.0.0"
-  }
+  },
+  "gitHead": "11ec9a695abb431ac0ac12fa36cb46c92f738fe6"
 }
