@@ -1,7 +1,15 @@
 'use strict';
 
-module.exports = init;
+const {Commander} = require("@jj-cli/commands");
 
-function init() {
-  return 'Hello from init';
+
+class Init extends Commander{
+
 }
+
+
+function init(args) {
+  return new Init(args);
+}
+
+module.exports = init;
