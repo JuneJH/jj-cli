@@ -8,6 +8,7 @@ const { checkUpdate, getPkgLatestVersion } = require("./checkUpdate");
 const { checkNodeVersion, checkPkgVersion } = require("./checkVersion");
 const getRegistry = require("./getRegistry");
 const compatibleSep = require("./compatibleSep");
+const spawn = require("./spawn");
 
 
 
@@ -23,4 +24,5 @@ module.exports = {
   getPkgLatestVersion,
   compatibleSep,
   log,
+  spawn
 }
