@@ -13,9 +13,6 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmmirror.com/"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JuneJH/jj-cli.git"
@@ -30,5 +27,5 @@
     "@jj-cli/commands": "^1.0.10",
     "@jj-cli/tools": "^1.0.10"
   },
-  "gitHead": "524a44b4b4b9d35b356779a89cbd18835975facb"
+  "gitHead": "11ec9a695abb431ac0ac12fa36cb46c92f738fe6"
 }
