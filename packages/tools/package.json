@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/JuneJH/jj-cli/issues"
   },
-  "gitHead": "0e7ecbeb83cf063b03f29b544dd02f0f934cc593",
+  "gitHead": "4758560321e384c85ad93c828e80a0079ea43f62",
   "dependencies": {
     "axios": "^0.21.0",
     "dotenv": "^8.2.0",
