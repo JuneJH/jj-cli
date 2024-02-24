@@ -13,3 +13,5 @@ class Commander{
         throw new Error("必须实现exec方法");
     }
 }
+
+module.exports = Commander;

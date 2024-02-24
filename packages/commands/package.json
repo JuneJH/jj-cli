@@ -1,6 +1,6 @@
 {
   "name": "@jj-cli/commands",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "> TODO: description",
   "author": "JuneJH <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
@@ -29,5 +29,5 @@
     "dedent": "^1.5.1",
     "yargs": "^17.7.2"
   },
-  "gitHead": "4758560321e384c85ad93c828e80a0079ea43f62"
+  "gitHead": "da7363ea6eaace8e12a5ff06bf71b673792ff8ee"
 }

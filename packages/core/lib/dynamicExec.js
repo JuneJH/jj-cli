@@ -1,7 +1,7 @@
 const path = require("path");
 const PackageManage = require("@jj-cli/packageManage");
 const INITLIST = {
-    init: "@jj-cli/tools"
+    init: "@jj-cli/init"
 }
 const CACHE_DIR = "cache_dep";
 
