@@ -5,6 +5,7 @@
   "author": "juhong <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
   "license": "ISC",
+  "private": false,
   "main": "lib/index.js",
   "directories": {
     "lib": "lib",
@@ -33,5 +34,5 @@
     "path-exists": "^4.0.0",
     "pkg-dir": "^5.0.0"
   },
-  "gitHead": "24757d895f6b45c6576c2db1c357abfcaa1c6d35"
+  "gitHead": "a410c6d961ea9a0168e7305e7c3a0dec1a430196"
 }
