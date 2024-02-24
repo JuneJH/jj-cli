@@ -5,6 +5,7 @@
   "author": "JuneJH <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
   "license": "ISC",
+  "private": false,
   "main": "lib/index.js",
   "directories": {
     "lib": "lib",
@@ -27,5 +28,6 @@
     "commander": "^12.0.0",
     "dedent": "^1.5.1",
     "yargs": "^17.7.2"
-  }
+  },
+  "gitHead": "24757d895f6b45c6576c2db1c357abfcaa1c6d35"
 }

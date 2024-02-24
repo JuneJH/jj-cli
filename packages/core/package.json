@@ -28,10 +28,10 @@
     "url": "https://github.com/JuneJH/jj-cli/issues"
   },
   "dependencies": {
-    "@jj-cli/commands": "file:../commands",
+    "@jj-cli/commands": "^1.0.7",
     "@jj-cli/packageManage": "file:../packageManage",
-    "@jj-cli/tools": "file:../tools",
+    "@jj-cli/tools": "^1.0.7",
     "import-local": "^3.1.0"
   },
-  "gitHead": "73e871a8236788573a2ebe528d0ae588f75f8e8e"
+  "gitHead": "24757d895f6b45c6576c2db1c357abfcaa1c6d35"
 }

@@ -27,7 +27,8 @@
     "url": "https://github.com/JuneJH/jj-cli/issues"
   },
   "dependencies": {
-    "@jj-cli/commands": "file:../commands",
-    "@jj-cli/tools": "file:../tools"
-  }
+    "@jj-cli/commands": "^1.0.7",
+    "@jj-cli/tools": "^1.0.7"
+  },
+  "gitHead": "24757d895f6b45c6576c2db1c357abfcaa1c6d35"
 }
