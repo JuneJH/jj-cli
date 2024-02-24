@@ -29,7 +29,8 @@
     "fs-extra": "^11.2.0",
     "npminstall": "^7.12.0",
     "path-exists": "^4.0.0",
-    "pkg-dir": "^5.0.0"
+    "pkg-dir": "^5.0.0",
+    "semver": "^7.6.0"
   },
   "gitHead": "da7363ea6eaace8e12a5ff06bf71b673792ff8ee"
 }

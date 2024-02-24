@@ -5,6 +5,7 @@ const pathExists = require("path-exists").sync;
 const fse = require("fs-extra");
 const npminstall = require("npminstall");
 const pkgDir = require('pkg-dir').sync;
+const semver = require('semver');
 const { getPkgLatestVersion, getRegistry, compatibleSep } = require("@jj-cli/tools");
 class PackageManage {
 
@@ -54,11 +55,13 @@ class PackageManage {
     })
   }
 
+  // TODO 更新比对出现问题，不能比较缓存与线上版本
   async update() {
     await this.preHander();
     const latestPkgVersion = await getPkgLatestVersion(this.pkgName);
-    const latestPkgVersionPath = this.computerPkgPath(latestPkgVersion);
-    if (!pathExists(latestPkgVersionPath)) {
+    const currentPkgVersion = this.getPkgCurrentVersion();
+    if (!semver.gte(currentPkgVersion,latestPkgVersion)) {
+      console.log("开始更新:",this.currentPkgVersion,"->",this.latestPkgVersion)
       await npminstall({
         root: this.root,
         storeDir: this.storeDir,
@@ -73,19 +76,27 @@ class PackageManage {
       this.pkgVersion = latestPkgVersion;
     }
   }
-  _getFileRootPath(targetPath) {
+  _getPkgJson(targetPath) {
     const packageDir = pkgDir(targetPath);
     if (packageDir) {
       const packageJSON = require(path.resolve(packageDir, "package.json"));
-      if (packageJSON && packageJSON.main) {
-        return compatibleSep(path.resolve(packageDir, packageJSON.main));
-      }
+      return packageJSON;
     }
     return null;
   }
 
+  getPkgCurrentVersion(){
+    const pkgJson = this._getPkgJson(path.resolve(this.storeDir, this.pkgName));
+    return pkgJson ? pkgJson.version : null;
+  }
+
   getFileRootPath() {
-    return this._getFileRootPath(path.resolve(this.storeDir, this.pkgName));
+    const packageDir = path.resolve(this.storeDir, this.pkgName);
+    const pkgJson = this._getPkgJson(packageDir);
+    if (pkgJson && pkgJson.main) {
+      return compatibleSep(path.resolve(packageDir, pkgJson.main));
+    }
+    return null;
   }
 }
 
