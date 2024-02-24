@@ -4,7 +4,9 @@ const {Commander} = require("@jj-cli/commands");
 
 
 class Init extends Commander{
-
+  init(){
+    console.log("shixian")
+  }
 }
 
 
