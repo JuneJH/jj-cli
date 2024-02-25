@@ -61,7 +61,7 @@ class PackageManage {
     const latestPkgVersion = await getPkgLatestVersion(this.pkgName);
     const currentPkgVersion = this.getPkgCurrentVersion();
     if (!semver.gte(currentPkgVersion,latestPkgVersion)) {
-      console.log("开始更新:",this.currentPkgVersion,"->",this.latestPkgVersion)
+      console.log("开始更新:",currentPkgVersion,"->",latestPkgVersion)
       await npminstall({
         root: this.root,
         storeDir: this.storeDir,

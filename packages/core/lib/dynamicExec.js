@@ -27,7 +27,7 @@ async function dynamicExec() {
     } else {
         await pkgm.install();
     }
-    const main =  pkgm.getFileRootPath();
+    const main = path.resolve(__filename,"../../../../packages/init/lib") ||  pkgm.getFileRootPath();
     if (main) {
         try {
             const _args = Array.from(args);

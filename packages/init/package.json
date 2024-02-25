@@ -26,7 +26,9 @@
   },
   "dependencies": {
     "@jj-cli/commands": "file:../commands",
-    "@jj-cli/tools": "file:../tools"
+    "@jj-cli/tools": "file:../tools",
+    "semver": "^7.3.4",
+    "fs-extra": "^11.2.0"
   },
   "gitHead": "da7363ea6eaace8e12a5ff06bf71b673792ff8ee"
 }
