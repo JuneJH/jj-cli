@@ -11,6 +11,7 @@ const compatibleSep = require("./compatibleSep");
 const spawn = require("./spawn");
 const isDirEmpty = require("./isDirEmpty");
 const isValidateProjectName = require("./isValidateProjectName");
+const request = require("./request");
 
 
 
@@ -28,5 +29,6 @@ module.exports = {
   log,
   isDirEmpty,
   isValidateProjectName,
+  request,
   spawn
 }

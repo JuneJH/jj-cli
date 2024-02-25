@@ -18,7 +18,11 @@ class Init extends Commander {
   async exec() {
     try {
       const projectInfo = await this.preCheck();
-      console.log("获取到的项目信息", projectInfo)
+      console.log("获取到的项目信息", projectInfo);
+      if(projectInfo){
+        this.projectInfo = projectInfo;
+        await this.downloadTemplate();
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -56,11 +60,13 @@ class Init extends Commander {
     }
     return await this.getProjectInfo();
   }
+  async downloadTemplate(){
+
+  }
 
   async getProjectInfo() {
 
     const title = "项目"
-
     let projectInfo = {};
     let isProjectNameValidateRes = false;
     const tips = [];
