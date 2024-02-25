@@ -1,6 +1,6 @@
 {
   "name": "@jj-cli/init",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "init cli",
   "author": "juhong <15310487388@163.com>",
   "homepage": "https://github.com/JuneJH/jj-cli#readme",
@@ -27,8 +27,8 @@
   "dependencies": {
     "@jj-cli/commands": "file:../commands",
     "@jj-cli/tools": "file:../tools",
-    "semver": "^7.3.4",
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.2.0",
+    "semver": "^7.3.4"
   },
   "gitHead": "da7363ea6eaace8e12a5ff06bf71b673792ff8ee"
 }
