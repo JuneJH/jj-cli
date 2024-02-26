@@ -1,6 +1,6 @@
 const path = require("path");
 const PackageManage = require("@jj-cli/packageManage");
-const {log,spawn} = require("@jj-cli/tools");
+const { log, spawn } = require("@jj-cli/tools");
 const INITLIST = {
     init: "@jj-cli/init"
 }
@@ -27,7 +27,8 @@ async function dynamicExec() {
     } else {
         await pkgm.install();
     }
-    const main = path.resolve(__filename,"../../../../packages/init/lib") ||  pkgm.getFileRootPath();
+    const main = pkgm.getFileRootPath();
+    console.log("main", main)
     if (main) {
         try {
             const _args = Array.from(args);
@@ -41,16 +42,16 @@ async function dynamicExec() {
             })
             _args[_args.length - 1] = parmas;
             const code = `require('${main}').call(null,${JSON.stringify(_args)})`;
-            const child = spawn("node",["-e",code],{
-                cwd:process.cwd(),
-                stdio:"inherit",
+            const child = spawn("node", ["-e", code], {
+                cwd: process.cwd(),
+                stdio: "inherit",
             })
 
-            child.on("error",e=>{
+            child.on("error", e => {
                 log.error(e.message);
                 process.exit(1);
             })
-            child.on("exit",e=>{
+            child.on("exit", e => {
                 process.exit(e);
             })
         } catch (error) {
@@ -64,3 +65,5 @@ async function dynamicExec() {
 
 }
 module.exports = dynamicExec;
+
+
