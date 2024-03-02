@@ -224,9 +224,11 @@ class Init extends Commander {
       const mainjs = new MainJS(options);
       await mainjs.init();
       await this.copyFiles(targetPath,path.resolve(templatePath,"template"));
+      mainjs.onCopyAfter && await mainjs.onCopyAfter(); // 文件复制完成后钩子函数
       const {install_cmd,start_cmd,ignore=[]} = this.template;
       const {projectInfo={}}= mainjs || {};
       await renderTemplate({dir:process.cwd(),ignore,data:{...this.projectInfo,...projectInfo}});
+      mainjs.onRenderTemplateAfter && await mainjs.onCopyAfter(); // 文件复制完成后钩子函数
       install_cmd && await this.execCmd(install_cmd,`安装依赖失败！请手动重试: ${install_cmd}`);
       start_cmd && await this.execCmd(start_cmd,`启动项目失败！请手动重试: ${start_cmd}`);
     }else{
