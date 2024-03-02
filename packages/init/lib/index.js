@@ -1,5 +1,6 @@
 'use strict';
 const inquirer = require('inquirer');
+const fs = require("fs");
 const fse = require('fs-extra');
 const path = require("path");
 const userHome = require("user-home");
@@ -10,6 +11,7 @@ const kebabCase = require("kebab-case");
 const PackageManage = require("@jj-cli/packagemanage");
 const PROJECT = "project";
 const COMPONENT = "component";
+const INSTALLMODECUSTOM = "custom";
 
 const EXECNPM = ["npm","yarn"];
 class Init extends Commander {
@@ -83,7 +85,7 @@ class Init extends Commander {
     if (res.code === HTTPCODE.success && !res.data.data) {
       throw new Error("项目模版列表信息获取失败,请检查网络原因");
     }
-    this.templateListInfo = res.data.data.filter(template =>template.tag === type);
+    this.templateListInfo = res.data.data.filter(template =>template.tag.includes(type));
     if(this.templateListInfo && this.templateListInfo.length === 0){
       throw new Error(`${tempalteType}类型模版的数量为0,请等待创建！！！`);
     }
@@ -177,10 +179,24 @@ class Init extends Commander {
   }
 
   async installTemplate(){
-    const targetPath = process.cwd();
+    if(this.template && this.template.type === INSTALLMODECUSTOM){
+      await this.installCustomTemplate();
+    }else{
+      await this.installStandardTeamplte();
+    }
+  }
 
+  async installStandardTeamplte(){
+    const targetPath = process.cwd();
+    const templatePath = path.resolve(this.templatePkgm.computerPkgPath(),this.template.name);
+    await this.copyFiles(targetPath,templatePath);
+    const {install_cmd,start_cmd,ignore=[]} = this.template;
+    await renderTemplate({dir:process.cwd(),ignore,data:this.projectInfo});
+    install_cmd && await this.execCmd(install_cmd,`安装依赖失败！请手动重试: ${install_cmd}`);
+    start_cmd && await this.execCmd(start_cmd,`启动项目失败！请手动重试: ${start_cmd}`);
+  }
+  async copyFiles(targetPath,templatePath){
     try {
-      const templatePath = path.resolve(this.templatePkgm.computerPkgPath(),this.template.name);
       fse.ensureDirSync(templatePath);
       fse.ensureDirSync(targetPath);
       fse.copySync(templatePath,targetPath);
@@ -190,13 +206,35 @@ class Init extends Commander {
       log.info("安装成功")
     }
 
-    const {install_cmd,start_cmd,ignore=[]} = this.template;
-    await renderTemplate({dir:process.cwd(),ignore,data:this.projectInfo});
-    await this.execCmd(install_cmd,`安装依赖失败！请手动重试: ${install_cmd}`);
-    await this.execCmd(start_cmd,`启动项目失败！请手动重试: ${start_cmd}`);
   }
 
-  async installCustomTemplate(){}
+  async installCustomTemplate(){
+    const targetPath = process.cwd();
+    const templatePath = path.resolve(this.templatePkgm.computerPkgPath(),this.template.name);
+    const mainJsPath = path.resolve(templatePath,"./main.js");
+    const options = {
+      template:this.template,
+      projectInfo:this.projectInfo,
+      templatePath,
+      cwd:targetPath
+    }
+    if(fs.existsSync(templatePath)){
+      log.info("开始执行自定义模版");
+      const MainJS = require(mainJsPath);
+      const mainjs = new MainJS(options);
+      await mainjs.init();
+      await this.copyFiles(targetPath,path.resolve(templatePath,"template"));
+      const {install_cmd,start_cmd,ignore=[]} = this.template;
+      const {projectInfo={}}= mainjs || {};
+      await renderTemplate({dir:process.cwd(),ignore,data:{...this.projectInfo,...projectInfo}});
+      install_cmd && await this.execCmd(install_cmd,`安装依赖失败！请手动重试: ${install_cmd}`);
+      start_cmd && await this.execCmd(start_cmd,`启动项目失败！请手动重试: ${start_cmd}`);
+    }else{
+      throw new Error("自定义模版入口文件不存在，请加入main.js文件")
+    }
+    // this.template.name += "template";
+  }
+
 
   async execCmd(cmd,msg){
     let res = null;
@@ -230,9 +268,6 @@ class Init extends Commander {
   transferTemplateInfo(id){
     return this.templateListInfo.find(template=>template.id === id);
   }
-
-
-
 }
 
 
