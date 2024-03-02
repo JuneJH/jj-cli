@@ -1,5 +1,5 @@
 const path = require("path");
-const PackageManage = require("@jj-cli/packageManage");
+const PackageManage = require("@jj-cli/packagemanage");
 const { log, spawn } = require("@jj-cli/tools");
 const INITLIST = {
     init: "@jj-cli/init"

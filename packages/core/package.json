@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@jj-cli/commands": "file:../commands",
-    "@jj-cli/packageManage": "file:../packageManage",
+    "@jj-cli/packagemanage": "file:../packageManage",
     "@jj-cli/tools": "file:../tools",
     "import-local": "^3.1.0"
   },

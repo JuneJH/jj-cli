@@ -7,7 +7,7 @@ const { Commander } = require("@jj-cli/commands");
 const { spawnSync, isDirEmpty, isValidateProjectName,loading, getProjectTempalteInfo, HTTPCODE,log } = require("@jj-cli/tools");
 const semver = require("semver");
 const kebabCase = require("kebab-case");
-const PackageManage = require("@jj-cli/packageManage");
+const PackageManage = require("@jj-cli/packagemanage");
 const PROJECT = "project";
 const COMPONENT = "component";
 
