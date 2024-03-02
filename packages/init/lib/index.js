@@ -4,7 +4,7 @@ const fse = require('fs-extra');
 const path = require("path");
 const userHome = require("user-home");
 const { Commander } = require("@jj-cli/commands");
-const { spawnSync, isDirEmpty, isValidateProjectName,loading, getProjectTempalteInfo, HTTPCODE,log } = require("@jj-cli/tools");
+const { spawnSync,renderTemplate, isDirEmpty, isValidateProjectName,loading, getProjectTempalteInfo, HTTPCODE,log } = require("@jj-cli/tools");
 const semver = require("semver");
 const kebabCase = require("kebab-case");
 const PackageManage = require("@jj-cli/packagemanage");
@@ -190,7 +190,8 @@ class Init extends Commander {
       log.info("安装成功")
     }
 
-    const {install_cmd,start_cmd} = this.template;
+    const {install_cmd,start_cmd,ignore=[]} = this.template;
+    await renderTemplate({dir:process.cwd(),ignore,data:this.projectInfo});
     await this.execCmd(install_cmd,`安装依赖失败！请手动重试: ${install_cmd}`);
     await this.execCmd(start_cmd,`启动项目失败！请手动重试: ${start_cmd}`);
   }
@@ -229,6 +230,8 @@ class Init extends Commander {
   transferTemplateInfo(id){
     return this.templateListInfo.find(template=>template.id === id);
   }
+
+
 
 }
 

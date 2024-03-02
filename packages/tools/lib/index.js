@@ -13,7 +13,7 @@ const isValidateProjectName = require("./isValidateProjectName");
 const {request,HTTPCODE} = require("./request");
 const getProjectTempalteInfo = require("./getProjectTempalteInfo");
 const loading = require("./loading");
-
+const renderTemplate = require("./renderTemplate");
 
 
 module.exports = {
@@ -35,5 +35,6 @@ module.exports = {
   spawnSync,
   getProjectTempalteInfo,
   HTTPCODE,
+  renderTemplate,
   loading
 }
