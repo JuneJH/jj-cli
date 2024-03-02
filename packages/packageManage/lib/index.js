@@ -9,11 +9,14 @@ const semver = require('semver');
 const { getPkgLatestVersion, getRegistry, compatibleSep } = require("@jj-cli/tools");
 class PackageManage {
 
+  /**
+   * 
+   * @param {*需要传入根路径和所需下载的包名版本} options 
+   */
   constructor(options) {
     if (!options) {
       throw new Error("PackageManage初始化时必须传递options")
     }
-
     this.root = options.root;
     this.storeDir = path.join(this.root, "node_modules");
     this.pkgName = options.pkgName;
