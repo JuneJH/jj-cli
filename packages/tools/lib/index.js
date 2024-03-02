@@ -4,14 +4,15 @@ const checkUserHome = require("./checkUserHome");
 const checkEnv = require("./checkEnv");
 const checkOption = require("./checkOption");
 const { checkUpdate, getPkgLatestVersion } = require("./checkUpdate");
-
 const { checkNodeVersion, checkPkgVersion } = require("./checkVersion");
 const getRegistry = require("./getRegistry");
 const compatibleSep = require("./compatibleSep");
-const spawn = require("./spawn");
+const {spawn,spawnSync} = require("./spawn");
 const isDirEmpty = require("./isDirEmpty");
 const isValidateProjectName = require("./isValidateProjectName");
-const request = require("./request");
+const {request,HTTPCODE} = require("./request");
+const getProjectTempalteInfo = require("./getProjectTempalteInfo");
+const loading = require("./loading");
 
 
 
@@ -30,5 +31,9 @@ module.exports = {
   isDirEmpty,
   isValidateProjectName,
   request,
-  spawn
+  spawn,
+  spawnSync,
+  getProjectTempalteInfo,
+  HTTPCODE,
+  loading
 }

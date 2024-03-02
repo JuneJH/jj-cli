@@ -1,5 +1,5 @@
 const log = require("./log");
-const pkg = require("../../../lerna.json");
+const pkg = require("../package.json");
 function checkPkgVersion() {
     log.info("cli version", pkg.version);
 }

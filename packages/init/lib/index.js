@@ -1,14 +1,17 @@
 'use strict';
 const inquirer = require('inquirer');
 const fse = require('fs-extra');
+const path = require("path");
+const userHome = require("user-home");
 const { Commander } = require("@jj-cli/commands");
-const { isDirEmpty, isValidateProjectName } = require("@jj-cli/tools");
+const { spawnSync, isDirEmpty, isValidateProjectName,loading, getProjectTempalteInfo, HTTPCODE,log } = require("@jj-cli/tools");
 const semver = require("semver");
-
+const kebabCase = require("kebab-case");
+const PackageManage = require("@jj-cli/packageManage");
 const PROJECT = "project";
 const COMPONENT = "component";
 
-
+const EXECNPM = ["npm","yarn"];
 class Init extends Commander {
 
   init() {
@@ -18,20 +21,18 @@ class Init extends Commander {
   async exec() {
     try {
       const projectInfo = await this.preCheck();
-      console.log("获取到的项目信息", projectInfo);
-      if(projectInfo){
+      if (projectInfo && projectInfo.template) {
         this.projectInfo = projectInfo;
         await this.downloadTemplate();
+        await this.installTemplate();
       }
     } catch (error) {
-      console.log(error.message);
+      log.error(error.message);
     }
-
   }
-
+  
   async preCheck() {
     const cwd = process.cwd();
-
     if (!isDirEmpty(cwd, ["node_modules"])) {
       let isContinue = false;
       if (!this.force) {
@@ -55,26 +56,16 @@ class Init extends Commander {
         })).isContinue
       }
       if (isContinue) {
+        const close = loading("正在清空目录...");
         fse.emptyDirSync(cwd);
+        close();
       }
     }
     return await this.getProjectInfo();
   }
-  async downloadTemplate(){
-
-  }
 
   async getProjectInfo() {
-
-    const title = "项目"
-    let projectInfo = {};
-    let isProjectNameValidateRes = false;
-    const tips = [];
-    if (isValidateProjectName(this.projectName)) {
-      isProjectNameValidateRes = true;
-      projectInfo.projectName = this.projectName;
-    }
-    tips.push({
+    const { type } = await inquirer.prompt({
       type: "list",
       name: "type",
       message: "请选择创建类型？",
@@ -85,41 +76,41 @@ class Init extends Commander {
       }, {
         name: "组件",
         value: COMPONENT
-      }]
-    })
-
-    if (isProjectNameValidateRes) {
-      tips.push({
-        type: 'input',
-        name: 'projectName',
-        message: `请输入${title}名称`,
-        default: '',
-        validate: function (v) {
-          const done = this.async();
-          setTimeout(function () {
-            if (!isValidateProjectName(v)) {
-              done(`请输入合法的${title}名称`);
-              return;
-            }
-            done(null, true);
-          }, 0);
-        },
-        filter: function (v) {
-          return v;
-        },
-      })
+      }],
+    });
+    const tempalteType = this.getProjectType(type);
+    const res = await getProjectTempalteInfo();
+    if (res.code === HTTPCODE.success && !res.data.data) {
+      throw new Error("项目模版列表信息获取失败,请检查网络原因");
     }
+    this.templateListInfo = res.data.data.filter(template =>template.tag === type);
+    if(this.templateListInfo && this.templateListInfo.length === 0){
+      throw new Error(`${tempalteType}类型模版的数量为0,请等待创建！！！`);
+    }
+    let projectInfo = { type,projectName:this.projectName };
+    const tips = [];
 
     tips.push({
+      type:"list",
+      name:"templateId",
+      message:`请选择${tempalteType}类型模版`,
+      choices:this.templateListInfo.map(template=>{
+        return {
+          value:template.id,
+          name:template.label
+        }
+      })
+    })
+    tips.push({
       type: 'input',
-      name: 'version',
-      message: `请输入${title}版本`,
-      default: '1.0.0',
+      name: 'projectName',
+      message: `请输入${tempalteType}名称`,
+      default: projectInfo.projectName,
       validate: function (v) {
         const done = this.async();
         setTimeout(function () {
-          if (!(!!semver.valid(v))) {
-            done(`请输入合法的${title}名称`);
+          if (!isValidateProjectName(v)) {
+            done(`请输入合法的${tempalteType}名称`);
             return;
           }
           done(null, true);
@@ -129,12 +120,114 @@ class Init extends Commander {
         return v;
       },
     })
+    tips.push({
+      type: 'input',
+      name: 'version',
+      message: `请输入${tempalteType}版本`,
+      default: '1.0.0',
+      validate: function (v) {
+        const done = this.async();
+        setTimeout(function () {
+          if (!(!!semver.valid(v))) {
+            done(`请输入合法的${tempalteType}名称`);
+            return;
+          }
+          done(null, true);
+        }, 0);
+      },
+      filter: function (v) {
+        return v;
+      },
+    })
+    tips.push({
+      type: 'input',
+      name: 'description',
+      message: `请输入${tempalteType}描述信息`,
+      default: '> TODO: 项目描述信息',
+    })
 
     const info = await inquirer.prompt(tips);
-
-    return { ...projectInfo, ...info };
-
+    this.projectName = this.transferProjectName(info.projectName);
+    this.template = this.transferTemplateInfo(info.templateId);
+    return { ...projectInfo, ...info,projectName:this.projectName,template:this.template };
   }
+
+  async downloadTemplate() {
+
+    const root = path.resolve(userHome,".jj-cli","template");
+    const pkg = new PackageManage({
+      root,
+      pkgName:this.template.pkgName,
+      pkeVersion:this.template.version,
+    });
+    if(!await pkg.exists()){
+     try {
+      await pkg.install();;
+     } catch (error) {
+      throw error;
+     }
+    }else{
+      try {
+        await pkg.update();
+      } catch (error) {
+        throw error;
+      }
+    }
+    this.templatePkgm = pkg;
+  }
+
+  async installTemplate(){
+    const targetPath = process.cwd();
+
+    try {
+      const templatePath = path.resolve(this.templatePkgm.computerPkgPath(),this.template.name);
+      fse.ensureDirSync(templatePath);
+      fse.ensureDirSync(targetPath);
+      fse.copySync(templatePath,targetPath);
+    } catch (error) {
+      throw error;      
+    } finally{
+      log.info("安装成功")
+    }
+
+    const {install_cmd,start_cmd} = this.template;
+    await this.execCmd(install_cmd,`安装依赖失败！请手动重试: ${install_cmd}`);
+    await this.execCmd(start_cmd,`启动项目失败！请手动重试: ${start_cmd}`);
+  }
+
+  async execCmd(cmd,msg){
+    let res = null;
+    if(cmd){
+      const cmdArray = cmd.split(" ");
+      if(!EXECNPM.includes(cmdArray[0])){
+        throw new Error(`该库的执行命令不存在:${cmdArray[0]}`)
+      }
+      const args = cmdArray.slice(1);
+      res = await spawnSync(cmdArray[0],args,{
+        stdio:"inherit",
+        cwd:process.cwd()
+      })
+    }
+    if(res != 0){
+      throw new Error(msg);
+    }
+    return res;
+  }
+
+
+  getProjectType(type) {
+    return type === PROJECT ? "项目" : "组件";
+  }
+  transferProjectName(name){
+    if(name){
+      return kebabCase(name).replace(/^-/,"");
+    }
+    throw new Error("未获取到项目名称信息");
+  }
+  transferTemplateInfo(id){
+    return this.templateListInfo.find(template=>template.id === id);
+  }
+
 }
 
 

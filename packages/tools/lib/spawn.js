@@ -12,4 +12,16 @@ function spawn(cmd, args, options) {
     return require("child_process").spawn(command, cmdArgs, options || {});
 }
 
-module.exports = spawn;
+function spawnSync(cmd, args, options) {
+    return new Promise((resolve, reject) => {
+        const p = spawn(cmd, args, options);
+        p.on('error', e => {
+            reject(e);
+        })
+        p.on("exit", e => {
+            resolve(e);
+        })
+    })
+}
+
+module.exports = {spawn,spawnSync};

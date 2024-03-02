@@ -33,6 +33,7 @@
     "root-check": "^1.0.0",
     "semver": "^7.3.4",
     "url-join": "^4.0.1",
+    "cli-spinner": "^0.2.10",
     "user-home": "^2.0.0"
   }
 }
