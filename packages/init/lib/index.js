@@ -195,6 +195,8 @@ class Init extends Commander {
     await this.execCmd(start_cmd,`启动项目失败！请手动重试: ${start_cmd}`);
   }
 
+  async installCustomTemplate(){}
+
   async execCmd(cmd,msg){
     let res = null;
     if(cmd){
