@@ -40,6 +40,17 @@ function getProjectTempalteInfo() {
                             descrption: "自定义模版",
                             install_cmd:"npm install",
                             start_cmd:""
+                        }, {
+                            id: "4",
+                            pkgName: "jj-cli-template",
+                            name: "admin-vue3",
+                            label: "基于vite+vue3的后台管理模版",
+                            version: "1.0.0",
+                            descrption: "基于vite+vue3的后台管理模版",
+                            type:"standard",
+                            tag: "project",
+                            install_cmd:"npm i --registry=https://registry.npmmirror.com",
+                            start_cmd:"npm run dev"
                         }
                     ],
                     total: 2,
